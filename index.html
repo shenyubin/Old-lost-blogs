@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>shenyubin blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="shenyubin blog">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="shenyubin blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shenyubin blog">
+  
+    <link rel="alternative" href="/atom.xml" title="shenyubin blog" type="application/atom+xml">
+  
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head_portrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">shenyubin</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives">文章列表</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/shenyubin" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">shenyubin</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/img/head_portrait.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">shenyubin</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">文章列表</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/shenyubin" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        
+  
+    <article id="post-css揭秘阅读笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/25/css揭秘阅读笔记/">css揭秘阅读笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="css揭秘：半透明边框"><a href="#css揭秘：半透明边框" class="headerlink" title="css揭秘：半透明边框"></a>css揭秘：半透明边框</h1><p>早在2008年 24ways.rog就在网页设计中应用了半透明的颜色，是最早尝鲜的网站之一。不过大多都是用于背景中。<br>半透明边框实现原理就是用rgba() || hsla()来实现<br>在一个div上用border:20px sold rgba(250,250,250,.5);理想状态下就能实现一个20像素的半透明边框了<br>但是事实上却是这样：</p>
+<pre><code># css部分
+*{ margin: 0; padding: 0;}
+    .father_demo{ width: 500px; height: 500px; /*background: hsl(200,0%,50%);*/ background: rgb(0,250,250); text-align: center; display: table-cell; vertical-align:middle;  position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto;}
+    .border_demo{ width: 200px; height: 200px;/* border:10px solid hsla(0,0%,100%,.5);*/ border:20px solid rgba(250,250,250,.8); background: white;  position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto;}
+
+# html部分
+&lt;div class=&quot;father_demo&quot;&gt;
+    &lt;div class=&quot;border_demo&quot;&gt;
+        demo
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>效果图：<br><img src="/img/jm-1-1.jpg" alt="效果图"></p>
+<p><strong> 用调试工具查看的边框是存在的但是给我们的感觉就没有半透明的效果。而是白色边框的感觉。</strong><br>这涉及到了背景的原理。背景有个属性background-clip。他默认的值是border-box。意味着背景更具元素的边框来就行裁剪，并且透出来的是元素的背景色。在边框以外才会显示背景。把这个属性值改成padding-box，让背景更具元素的padding来裁剪，这样边框底下就会显示背景。</p>
+<pre><code># css部分
+*{ margin: 0; padding: 0;}
+    .father_demo{ width: 500px; height: 500px; /*background: hsl(200,0%,50%);*/ background: rgb(0,250,250); text-align: center; display: table-cell; vertical-align:middle;  position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto;}
+    .border_demo{ width: 200px; height: 200px;/* border:10px solid hsla(0,0%,100%,.5);*/ border:20px solid rgba(250,250,250,.8); background: white;  position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto; background-clip: padding-box;} # 加上background-clip: padding-box;        
+</code></pre><p>效果图：<br><img src="/img/jm-1-2.jpg" alt="效果图"></p>
+<p>小tp：</p>
+<blockquote>
+<p>RGBA 颜色值得到以下浏览器的支持：IE9+、Firefox 3+、Chrome、Safari 以及 Opera 10+。<br>    RGBA 颜色值是 RGB 颜色值的扩展，带有一个 alpha 通道 - 它规定了对象的不透明度。<br>    RGBA 颜色值是这样规定的：rgba(red, green, blue, alpha)。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。</p>
+<p>HSL 指的是 hue（色调）、saturation（饱和度）、lightness（亮度） - 表示颜色柱面坐标表示法。<br>    HSL 颜色值是这样规定的：hsl(hue, saturation, lightness)。<br>    Hue 是色盘上的度数（从 0 到 360） - 0 (或 360) 是红色，120 是绿色，240 是蓝色。Saturation 是百分比值；0% 意味着灰色，而 100% 是全彩。Lightness 同样是百分比值；0% 是黑色，100% 是白色。<br>    HSLA 颜色值得到以下浏览器的支持：IE9+、Firefox 3+、Chrome、Safari 以及 Opera 10+。<br>    HSLA 颜色值是 HSL 颜色值的扩展，带有一个 alpha 通道 - 它规定了对象的不透明度。<br>    HSLA 颜色值是这样规定的：hsla(hue, saturation, lightness, alpha)，其中的 alpha 参数定义不透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字</p>
+</blockquote>
+<p>小tp2：<br>然元素水平垂直居中：</p>
+<pre><code>.demo{
+    width: 600px; height: 400px;
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    margin: auto;    /* 有了这个就自动居中了 */
+}
+</code></pre><p>兼容ie8+浏览器，ie7-就当看不见。<br>如果一定要在意ie7-我在网上瞄了几眼：</p>
+<pre><code>ie8+用display：table，而ie7-用outer绝对定位top：50%，inner用相对定位top:-50%
+</code></pre>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/25/css揭秘阅读笔记/" class="archive-article-date">
+  	<time datetime="2016-10-25T10:29:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-25</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/learn-log-css/">learn-log css</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-用js写脚本自动抢购" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/21/用js写脚本自动抢购/">用js写脚本自动抢购</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>中秋节已经过去不短的时间了，但是今年的中秋节在某大型公司十分的特别<br><img src="/img/16-10-21-1.jpg" alt="Paste_Image.png"><br>内部有一个抢购月饼的活动，有一位调皮的程序员灵光一闪我既然是程序员，那我就写个程序来抢月饼玩啊。很快到了抢购月饼的时候发现在购物车里抢购太多了，就联系行政的人退掉。毕竟人家是在某大型公司，事情发生了没有那么容易解决。被上头以作弊的的名义上升到了三观的程度让这位前辈不用再来这里了。<br>–个人表示很同情这位前辈的</p>
+<h1 id="我们还是来聊聊技术吧"><a href="#我们还是来聊聊技术吧" class="headerlink" title="我们还是来聊聊技术吧"></a>我们还是来聊聊技术吧</h1><h3 id="那么这位前辈到底是怎么实现让抢购页面自动抢购的呢？"><a href="#那么这位前辈到底是怎么实现让抢购页面自动抢购的呢？" class="headerlink" title="那么这位前辈到底是怎么实现让抢购页面自动抢购的呢？"></a>那么这位前辈到底是怎么实现让抢购页面自动抢购的呢？</h3><p>我们先来简单模拟下抢购页面<br>html：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h1&gt;抢月饼&lt;/h1&gt;</div><div class="line">    &lt;div class=<span class="string">"button"</span>&gt;</div><div class="line">    &lt;button id=<span class="string">"buy"</span>&gt;点击抢购&lt;/button&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">	var buy;</div><div class="line">	buy = document.getElementById(<span class="string">"buy"</span>);</div><div class="line">	buy.onclick=<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">		console.info(<span class="string">"抢购成功"</span>);</div><div class="line">	&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>页面效果：</p>
+<p><img src="/img/16-10-21-2.png" alt="Paste_Image.png"></p>
+<h3 id="那么问题来了我们怎么实现让按钮自动点击呢？"><a href="#那么问题来了我们怎么实现让按钮自动点击呢？" class="headerlink" title="那么问题来了我们怎么实现让按钮自动点击呢？"></a>那么问题来了我们怎么实现让按钮自动点击呢？</h3><p>我们写一个原生js用定时器来实现：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span>Interval(<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">	var buy=document.getElementById(<span class="string">"buy"</span>);</div><div class="line">	buy.click();</div><div class="line">&#125;,1000)</div></pre></td></tr></table></figure></p>
+<h3 id="嗯，确实如果放到js中的话只要调用这个定时器就能让他不断的点击抢购了，但是怎么才能放到线上的抢购页面呢，毕竟那个不是在自己的本地啊？"><a href="#嗯，确实如果放到js中的话只要调用这个定时器就能让他不断的点击抢购了，但是怎么才能放到线上的抢购页面呢，毕竟那个不是在自己的本地啊？" class="headerlink" title="嗯，确实如果放到js中的话只要调用这个定时器就能让他不断的点击抢购了，但是怎么才能放到线上的抢购页面呢，毕竟那个不是在自己的本地啊？"></a>嗯，确实如果放到js中的话只要调用这个定时器就能让他不断的点击抢购了，但是怎么才能放到线上的抢购页面呢，毕竟那个不是在自己的本地啊？</h3><p>在chrome下：</p>
+<ol>
+<li>首先，把刚才我们写好的原生js保存为.user.js比如clicktool.user.js</li>
+<li>打开chrome浏览器输入chrome://extensions，来打开chrome的扩展程序</li>
+<li>把我们保存的clicktool.user.js拖进来安装。</li>
+<li>重新打开我们的抢购页面就开始自动抢购啦。</li>
+</ol>
+<p><img src="/img/16-10-21-3.png" alt="Paste_Image.png"></p>
+<p>在FireFox下:</p>
+<ol>
+<li>下载安装greasemonkey（“油猴子”）。</li>
+<li>重新启动浏览器</li>
+<li>打开greasemokey拖入我们刚才的clicktool.user.js</li>
+<li>重新进入抢购页面就可以啦</li>
+</ol>
+<p>恩恩，学到了，原来自己写的脚本只要这样就能用在页面上了，涨姿势了！瞬间慢慢的成就感，这很geek。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/21/用js写脚本自动抢购/" class="archive-article-date">
+  	<time datetime="2016-10-21T09:43:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-21</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-如何省去git提交时候的用户名和密码输入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/17/如何省去git提交时候的用户名和密码输入/">如何省去git提交时候的用户名和密码输入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>前言</strong>：在大家使用github的过程中，一定会碰到这样一种情况，就是每次要push 和pull时总是要输入github的账号和密码，作为一只喜欢鼓（xia）捣（gao）的前端，在网上找了方法来避免这种状况，这些成果也是前辈提出来的，我在此只是做个总结加深自己的印象和备忘。</p>
+<p>#1. 创建文件存储GIT用户名和密码<br>在%HOME%目录中，一般为C:\users\Administrator，也可以是你自己创建的系统用户名目录（笔者的是w7系统在C:\用户\Administrator)。创建文件名为.git-credentials,由于在Window中不允许直接创建以”.”开头的文件，所以需要借助git bash进行，C:\users\Administrator下右键打开git bash客户端，然后用touch创建文件 .git-credentials, 用vim编辑此文件，输入内容格式：</p>
+<blockquote>
+<p>touch .git-credentials<br>vim .git-credentials<br><a href="https://{username}:{password}@github.com" target="_blank" rel="external">https://{username}:{password}@github.com</a></p>
+</blockquote>
+<p><strong>ps:笔者开始时在用了touch .git-credentials 后用vim打开后写完不知道如何保存，取巧的用DW打开.git-credentials写。</strong></p>
+<hr>
+<p><strong style="color:red">vim保存关闭总结：</strong></p>
+<blockquote>
+<p>用vim “文件名字” 来打开文件后进入的是命令模式，增删改查，按esc退回bash命令行<br>在进入文件后再按i或者insert后就是编辑模式，直接在这里敲键盘写文字。按大写的ZZ或者:wq保存并退出</p>
+</blockquote>
+<p><strong style="color:red">下面是笔者网上找的vim的操作···我们不是为了说省输入户名吗？可以直接看第二步</strong></p>
+<ul>
+<li>1、vim 有两种工作模式：<br>（1） 命令模式：接受、执行 vi &amp; vim 操作命令的模式，打开文件后的默认模式；<br>（2） 编辑模式：对打开的文件内容进行 增、删、改 操作的模式；<br>在编辑模式下按下 ESC 键，回退到命令模式。</li>
+<li>2、创建、打开文件：$ vi [filename]<br>（1）使用 vi 加 文件路径（或文件名）的模式打开文件，如果文件存在则打开现有文件，如果文件不存在则新建文件，并在终端最下面一行显示打开的是一个新文件。<br>（2）键盘输入字母 “i”或“Insert”键进入最常用的插入编辑模式。<br><img src="/img/nogitpushpasword-1.png" alt="Paste_Image.png"></li>
+<li>3、保存文件：<br>（1）在插入编辑模式下编辑文件。<br>（2）按下 “ESC” 键，退出编辑模式，切换到命令模式。<br>（3）在命令模式下键入”ZZ”或者”:wq”保存修改并且退出 vi 。<br>（4）如果只想保存文件，则键入”:w”，回车后底行会提示写入操作结果，并保持停留在命令模式。</li>
+<li>4、放弃所有文件修改：<br>（1）放弃所有文件修改：按下 “ESC” 键进入命令模式，键入 “:q!” 回车后放弃修改并退出vi。<br>（2）放弃所有文件修改，但不退出 vi ，即回退到文件打开后最后一次保存操作的状态，继续进行文件操作：按下 “ESC” 键进入命令模式，键入 “:e!” ，回车后回到命令模式。</li>
+</ul>
+<hr>
+<h1 id="2-添加Git-Config内容"><a href="#2-添加Git-Config内容" class="headerlink" title="2. 添加Git Config内容"></a>2. 添加Git Config内容</h1><p>进入git bash终端， 输入如下命令：</p>
+<pre><code>git config --global credential.helper store
+</code></pre><p>执行完后查看%HOME%目录下的.gitconfig文件，会多了一项：</p>
+<pre><code>[credential]
+    helper = store
+</code></pre><p>笔者随便加了几个注释文字重新开启git bash然后提交了下再也不用每次提交都要输入用户名和密码啦</p>
+<blockquote>
+<p>git status<br>git add .<br>git commit<br>git push origin master</p>
+</blockquote>
+<p><img src="/img/nogitpushpasword-2.png" alt="Paste_Image.png"></p>
+<p>end</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/17/如何省去git提交时候的用户名和密码输入/" class="archive-article-date">
+  	<time datetime="2016-10-17T05:44:43.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-17</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-git常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/17/git常用命令/">git常用命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-提交github前提-ssh"><a href="#1-提交github前提-ssh" class="headerlink" title="1. 提交github前提    ssh"></a>1. 提交github前提    ssh</h1><ul>
+<li>你拥有了一个 GitHub 账号之后，就可以自由的 clone 或者下载其他项目，也可以创建自己的项目，但是你没法提交代码。仔细想想也知道，肯定不可能随意就能提交代码的，如果随意可以提交代码，那么 GitHub 上的项目岂不乱了套了，所以提交代码之前一定是需要某种授权的，而 GitHub 上一般都是基于 SSH 授权的。</li>
+<li>那么什么是 SSH 呢？<br>简单点说，SSH是一种网络协议，用于计算机之间的加密登录。目前是每一台 Linux 电脑的标准配置。而大多数 Git 服务器都会选择使用 SSH 公钥来进行授权，所以想要在 GitHub 提交代码的第一步就是要先添加 SSH key 配置。<h3 id="1-1-生成SSH-key"><a href="#1-1-生成SSH-key" class="headerlink" title="1.1 生成SSH key"></a>1.1 生成SSH key</h3></li>
+<li>Linux 与 Mac 都是默认安装了SSH ，而 Windows 系统安装了 Git Bash 应该也是带了SSH 的。大家可以在终端（win下在Git Bash 里）输入 ssh如果出现以下提示证明你本机已经安装SSH。<br><img src="/img/github-mustcode-1.png" alt="Paste_Image.png"></li>
+<li>紧接着输入 <strong>ssh-keygen -t rsa</strong>，什么意思呢？就是指定 rsa 算法生成密钥，接着连续三个回车键（不需要输入密码），然后就会生成两个文件 <strong>id_rsa </strong>和 <strong>id_rsa.pub</strong> ，而<strong>id_rsa </strong>是密钥，<strong>id_rsa.pub</strong> 就是公钥。这两文件默认分别在如下目录里生成：<br>Linux/Mac 系统 在~/.ssh下，win系统在 /c/Documents and Settings/username/.ssh 下都是隐藏文件。<br>ps: (id_rsa.pub 公钥可以用DW,sublime等打开)<h3 id="1-2-GitHub-（setting中）上添加-SSH-key"><a href="#1-2-GitHub-（setting中）上添加-SSH-key" class="headerlink" title="1.2 GitHub （setting中）上添加 SSH key"></a>1.2 GitHub （setting中）上添加 SSH key</h3></li>
+<li>在 GitHub 上的设置页面，点击最左侧 <strong>SSH and GPG keys</strong><br><img src="/img/github-mustcode-2.png" alt="Paste_Image.png"><br>需要做的只是在 <strong>Key</strong> 那栏把 id_rsa.pub 公钥文件里的内容复制粘贴进去就可以了（上述示例为了安全粘贴的公钥是无效的），<strong>Title</strong> 那栏填写你自己喜欢的名，点击 <strong>Add SSH key </strong>按钮就ok了<h3 id="1-3-测试"><a href="#1-3-测试" class="headerlink" title="1.3 测试"></a>1.3 测试</h3>输入 <strong>ssh -T git@github.com </strong>进行测试，如果出现以下提示证明添加成功了。（第一次配置中间可能会出现要你填写yes/no）<blockquote>
+<p>Administrator@PC-20131019WPLR MINGW64 /github/mycv (gh-pages)<br>$ ssh -T git@github.com<br>Hi shenyubin! You’ve successfully authenticated, but GitHub does not<br>provide shell access.</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="2-github常用代码"><a href="#2-github常用代码" class="headerlink" title="2. github常用代码"></a>2. github常用代码</h1><ul>
+<li><strong>git config –globaluser.name “shenyubin”</strong></li>
+<li><p><strong>git config –globaluser.email “shenyubin_html@163.com”</strong> #配置你的用户名和邮箱，这样在上传后会显示提交人的有户名    </p>
+</li>
+<li><p><strong>git pull origin master</strong>  #「拉」的意思，如果别人提交代码到远程仓库，这个时候你需要把远程仓库的最新代码拉下来，然后保证两端代码的同步。</p>
+</li>
+<li><strong>git clone git@github.com:shenyubin/test.git</strong> # 克隆github上创建的库</li>
+<li><strong>git status</strong>  # 在clone好的库中写好或添加好项目后通过status查看</li>
+<li><strong>git add . </strong> # 查看确实已经有添加后通过git add . 来添加全部库中的修改</li>
+<li><strong>git commit -m “这里写上操作信息”</strong>  # 用commit 来添加操作信息</li>
+<li><strong>git push origin master</strong>  # 最后提交。如果你本地代码有更新了，那么就需要把本地代码推到远程仓库，这样本地仓库跟远程仓库就可以保持同步了，会出现让你输入用户名和密码然后完成提交。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/17/git常用命令/" class="archive-article-date">
+  	<time datetime="2016-10-17T00:51:50.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-17</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-开启多说" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/12/开启多说/">开启多说</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开启博客的多说</p>
+<h2 id="1-多说账号和多说站点"><a href="#1-多说账号和多说站点" class="headerlink" title="1. 多说账号和多说站点"></a>1. 多说账号和多说站点</h2><p><a href="http://duoshuo.com/create-site/" target="_blank" rel="external">创建站点点这里</a><br><br><br><img src="/img/duoshuo.png" alt="多说站点创建截图"></p>
+<h2 id="2-配置config"><a href="#2-配置config" class="headerlink" title="2. 配置config"></a>2. 配置config</h2><p><strong>在themes/yilia/_config.yml</strong></p>
+<pre><code>#是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
+#若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
+duoshuo: true
+duoshuo_shortname: shenyubinblog
+</code></pre><p><br></p>
+<h2 id="3-修改themes-landscape-layout-partial-article-ejs的文件"><a href="#3-修改themes-landscape-layout-partial-article-ejs的文件" class="headerlink" title="3. 修改themes/landscape/layout/_partial/article.ejs的文件"></a>3. 修改themes/landscape/layout/_partial/article.ejs的文件</h2><p><strong>把原来的</strong></p>
+<pre><code>&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname){ %&gt;
+&lt;section id=&quot;comments&quot;&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;//disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;% } %&gt;
+</code></pre><p><strong>改成</strong></p>
+<pre><code>&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.duoshuo_shortname){ %&gt;
+  &lt;section id=&quot;comments&quot;&gt;
+    &lt;!-- 多说评论框 start --&gt;
+    &lt;div class=&quot;ds-thread&quot; data-thread-key=&quot;&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;&quot; data-title=&quot;&lt;%= post.title %&gt;&quot; data-url=&quot;&lt;%= page.permalink %&gt;&quot;&gt;&lt;/div&gt;
+    &lt;!-- 多说评论框 end --&gt;
+    &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    var duoshuoQuery = {short_name:&apos;&lt;%= config.duoshuo_shortname %&gt;&apos;};
+      (function() {
+        var ds = document.createElement(&apos;script&apos;);
+        ds.type = &apos;text/javascript&apos;;
+        ds.async = true;
+        ds.src = (document.location.protocol == &apos;https:&apos; ? &apos;https:&apos; : &apos;http:&apos;) + &apos;//static.duoshuo.com/embed.js&apos;;
+        ds.charset = &apos;UTF-8&apos;;
+        (document.getElementsByTagName(&apos;head&apos;)[0] 
+         || document.getElementsByTagName(&apos;body&apos;)[0]).appendChild(ds);
+      })();
+      &lt;/script&gt;
+    &lt;!-- 多说公共JS代码 end --&gt;
+  &lt;/section&gt;
+&lt;% } %&gt;
+</code></pre><p><br></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/12/开启多说/" class="archive-article-date">
+  	<time datetime="2016-10-12T06:09:50.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-12</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo主题更换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/11/hexo主题更换/">hexo主题更换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>既然要鼓（zhuang）捣（bi）那博客要geek一点，不多说换个简约又不失bi格的主题</strong></p>
+<h2 id="1-下载yilia主题"><a href="#1-下载yilia主题" class="headerlink" title="1. 下载yilia主题"></a>1. 下载yilia主题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="comment">#在我的D:/git/shenyubinblog根目录下</span></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</div><div class="line">$ <span class="comment">#就会在themes的文件夹下下载好yilia主题</span></div></pre></td></tr></table></figure>
+<h2 id="2-配置yilia主题config-yml"><a href="#2-配置yilia主题config-yml" class="headerlink" title="2. 配置yilia主题config.yml"></a>2. 配置yilia主题config.yml</h2><p><strong>在themes/yilia/路径下的_config.yml文件用我的打开能让我等到头发白的Hbuilder来编辑末尾带*的就是我修改的地方</strong></p>
+<pre><code>menu:
+  主页: /
+  所有文章: /archives *
+
+# SubNav
+subnav:
+  github: &quot;https://github.com/shenyubin&quot; *
+  #weibo: &quot;#&quot; *
+  #rss: &quot;#&quot; *
+  #zhihu: &quot;#&quot; *
+  #douban: &quot;#&quot;
+  #mail: &quot;#&quot;
+  #facebook: &quot;#&quot;
+  #google: &quot;#&quot;
+  #twitter: &quot;#&quot;
+  #linkedin: &quot;#&quot;
+
+rss: /atom.xml
+
+# 是否需要修改 root 路径
+# 如果您的网站存放在子目录中，例如 http://yoursite.com/blog，
+# 请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
+root: 
+
+# Content
+excerpt_link: more
+fancybox: true
+mathjax: false
+
+# 是否开启动画效果
+animate: true 
+
+# 是否在新窗口打开链接
+open_in_new: false
+
+# Miscellaneous
+google_analytics: &apos;&apos;
+#favicon: /favicon.png
+
+#你的头像url
+avatar: &quot;/img/head_portrait.jpg&quot; *
+
+#是否开启分享
+share_jia: true
+share_addthis: false
+
+#是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
+#若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
+duoshuo: false
+
+# 如不需要，将该项置为false
+# 比如
+#smart_menu:
+#  friends: false
+
+smart_menu:
+  innerArchive: &apos;所有文章&apos;
+  tagcloud: &apos;标签&apos;
+  friends: &apos;友链&apos;
+  aboutme: &apos;关于我&apos;
+
+friends:
+ github博客: https://shenyubin.github.io/ *
+  刘恩的博客: https://leenty.github.io/ *
+  #友情链接4: http://localhost:4000/
+  #友情链接5: http://localhost:4000/
+  #友情链接6: http://localhost:4000/
+
+aboutme: 这是一只&lt;br&gt;&lt;br&gt;喜欢鼓（xia）捣（gao）的前端  *
+</code></pre><h2 id="3-修改根目录的配置文件"><a href="#3-修改根目录的配置文件" class="headerlink" title="3. 修改根目录的配置文件"></a>3. 修改根目录的配置文件</h2><p><strong>在更目录的_config.yml文件中吧theme的属性改成yilia</strong><br><em>ps: 没错我就掉坑里的了，在theme：yilia之间一定要有一个空格，不然会报错。</em></p>
+<pre><code># Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: yilia
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repository: git@github.com:shenyubin/shenyubin.github.io.git
+  branch: master
+</code></pre><p><strong>打开localhost:4000就能看到我的博客了，然后部署到github就可以了</strong><br><img src="/img/shenyubinblog.jpg" alt="shenyubinblog"><br><br></p>
+<h2 id="嗯，更换个主题原来就这么简单！"><a href="#嗯，更换个主题原来就这么简单！" class="headerlink" title="嗯，更换个主题原来就这么简单！"></a><center>嗯，更换个主题原来就这么简单！</center></h2><p><br><br><br><strong style="color:red">理想状态是上面的，但是事实却是经过了无数的下面这样的坑，看看笑过就好</strong></p>
+<p><strong>在配置yilia的config文档后</strong><br>本地预览：出错（检查出就是自己电脑配置的问题，只能半英文写：github博客在另一台电脑上没有遇到这个问题）<br><img src="/img/error2.jpg" alt="error2.jpg"><br><br><br><strong>在配置更目录config文档后</strong><br>同样的我的github的地址用https和用ssh方式还不同，我的笔记本上用https地址死活不给你部署，一换ssh地址就ok了。</p>
+<pre><code>deploy:
+  type: git
+  repository: https://github.com/shenyubin/shenyubin.github.io.git
+  branch: master
+</code></pre><p><strong style="color:red">同样是github上复制下来的你们哥俩还要分各家，吵个架！</strong></p>
+<pre><code>deploy:
+  type: git
+  repository: git@github.com:shenyubin/shenyubin.github.io.git
+  branch: master
+</code></pre><p><br><br><strong>在配置更目录config文档后</strong><br>作为一只爱鼓（xia）捣（搞）的前端我用windows自带的命令窗口cmd也试着建博客，理想很美好，现实就是下面的<br><img src="/img/error3.jpg" alt="error3.jpg"></p>
+<p>但是同样的配置没动过我前脚关掉windows自带的命令窗口cmd，后手用git bash他就部署好了！！！<strong>wort fuck</strong><br><img src="/img/error_right.jpg" alt="error_right.jpg"><br><br><br><strong>写文章的时候图片可以用网络地址图片也可以用本地的</strong><br>我用了本地的放在了public/img中，但是每次提交后图片都没有了！！！仔细看了我的操作过程才发现原来是你！，于是我从此把图片放在themes/yilia/source/img/<br><img src="/img/clean.jpg" alt="clean.jpg"><br><br><br><strong>配置yilia主题config的时候没有注释favicon: /favicon.png</strong><br><img src="/img/error4.png" alt="error4"><br><img src="/img/error4-1.png" alt="error4-1"><br><br><br><strong style="color:red">哈哈哈，看看笑过就好</strong></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/11/hexo主题更换/" class="archive-article-date">
+  	<time datetime="2016-10-11T15:15:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo-github搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/10/hexo-github搭建个人博客/">hexo+github搭建个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> <strong>作为一只想要鼓（zhuang）捣（bi）的前端得有个写博客的地方，于是话不多说抄起键盘就是干</strong></p>
+<p><em>ps：github账号注册<a href="https://github.com/" target="_blank" rel="external">https://github.com/</a> 就不多说了</em></p>
+<h2 id="1-0-安装git（无脑下一步即可）"><a href="#1-0-安装git（无脑下一步即可）" class="headerlink" title="1.0 安装git（无脑下一步即可）"></a>1.0 安装<a href="https://www.baidu.com/link?url=3rT5SSGCqN8J3w0rw8T7fHKvTEZ6NiYfDK5sxYGK5GCTeEp3A0ufmhe8YVi0-zGiMpcEIk2ibq0s1J-z_Ys8x5VLcpDCwbgvNEE7RBVBj6O&amp;wd=&amp;eqid=a85caa0700009e1500000004575021d8" target="_blank" rel="external">git</a>（无脑下一步即可）</h2><h2 id="2-0-安装node（无脑下一步）"><a href="#2-0-安装node（无脑下一步）" class="headerlink" title="2.0 安装node（无脑下一步）"></a>2.0 安装<a href="https://nodejs.org/dist/v4.6.0/node-v4.6.0-x64.msi" target="_blank" rel="external">node</a>（无脑下一步）</h2><h2 id="3-0-安装hexo"><a href="#3-0-安装hexo" class="headerlink" title="3.0 安装hexo"></a>3.0 安装hexo</h2><p>3.1 在如何地方鼠标右键选择git bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo</div></pre></td></tr></table></figure>
+<p><br><br>3.2 hexo安装完后在自己喜欢的地址下创建blog。我在D：\git\shenyubinblog中创建博客<br><em>ps：shenyubinblog这个文件夹是我自己右键新建的</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> D:/git/shenyubinblog</div><div class="line">$ hexo init</div></pre></td></tr></table></figure>
+<p><br><br>3.3 加入nmp管理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install</div></pre></td></tr></table></figure>
+<p><strong>这样在本地的一个hexo blog就已经初步完成了。</strong><br><em>ps：这里执行命令的路径一直都在D:/git/shenyubinblog我中途有退出后别的地方是执行不了的自己犯过的小错误。</em><br><br><br>3.4 查看本地博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p><strong>打开浏览器地址栏输入localhost:4000就可以看到本地的这个基础博客了。里面有一篇自带的Hello World文章。</strong><br><em>ps：如果关掉git bash 或者在命令行按ctrl+c就会关闭本地服务器的预览。</em></p>
+<p><strong style="color:red">小问题：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在hexo server后提示找不到该指令则：</span></div><div class="line">$ npm install hexo -server --save</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="4-0-修改自己的博客配置和写文章"><a href="#4-0-修改自己的博客配置和写文章" class="headerlink" title="4.0 修改自己的博客配置和写文章"></a>4.0 修改自己的博客配置和写文章</h2><p><strong>修改shenyubinblog/_config.yml文件</strong><br><em>ps:这里的配置格式要求很严个属性名加上：然后要有空格再接属性。例如（type: git）如果冒号后面没有空格会报错，我再次踩坑2次，在这里跌倒就再在这里跌一次然后就跌傻了</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Site</span></div><div class="line">title: shenyubin blog <span class="comment">#标题</span></div><div class="line">subtitle:</div><div class="line">description:</div><div class="line">author: shenyubin <span class="comment">#作者</span></div><div class="line">language: zh-CN <span class="comment">#语言</span></div><div class="line">timezone:</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Deployment</span></div><div class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></div><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  <span class="comment"># 这条是https地址下面的是ssh地址我试了两台电脑有一台https地址识别不了</span></div><div class="line">  <span class="comment"># repository: https://github.com/shenyubin/shenyubin.github.io.git与</span></div><div class="line">  repository: git@github.com:shenyubin/shenyubin.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<p><strong>新建一篇文章</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new 文章名字</div></pre></td></tr></table></figure>
+<p><strong>在shenyubinblog/source/_posts/下面会生成 “文章名字”.md用markdown编写这个文档</strong><br><em>ps:期间可以边保存边刷新看一直打开在哪里的localhost:4000，这里有篇不错的<a href="http://www.appinn.com/markdown/#em" target="_blank" rel="external">markdown语法说明</a></em><br><br></p>
+<h2 id="5-0-最最最关键的发布到github"><a href="#5-0-最最最关键的发布到github" class="headerlink" title="5.0 最最最关键的发布到github"></a>5.0 最最最关键的发布到github</h2><p>5.1 在提交之间要先与自己的github配对好</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"github上绑定的邮箱地址"</span></div></pre></td></tr></table></figure>
+<p><strong>3个回车，就能在C:\Users\Administor.ssh中得到id_rsa和id_rsa.pub,把id_rsa.pub里的内容复制到你的<a href="https://github.com/settings/ssh" target="_blank" rel="external">https://github.com/settings/ssh</a>  点add ssh key，title填你喜欢的，在下面框中粘贴。</strong><br><br><br>5.2 在自己的github上新建一个名为 “你的用户名”.github.io的项目</p>
+<p>点击绿色按钮会有一个复制clone地址的下拉框，可点击https或者ssh来切换clone地址，这个地址就可以直接填写到上面配置文件中的repository:<br><img src="/img/repo.jpg" alt="repo"><br><em>ps:如果有一个地址不行可以试试另一个，我再此坑中躺尸半天。</em><br><br><br>5.3 部署到自己的github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean <span class="comment">#清楚缓存</span></div><div class="line">$ hexo generate <span class="comment">#生成页面</span></div><div class="line">$ hexo deploy  <span class="comment">#部署到github博客</span></div></pre></td></tr></table></figure>
+<p><strong>当执行完hexo deploy后最后结尾是这样的才是部署成功了</strong><br><img src="/img/right.jpg" alt="right deploy"><br><strong>如果不是那就去找上面的”error：….”那个就是报错（突然发现报错了也不是那么可怕）</strong><br><img src="/img/error1.jpg" alt="error1"><br><br></p>
+<p>5.4 写博客常用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ hexo n <span class="string">"文章名"</span>  <span class="comment">#新建文章 == hexo new</span></div><div class="line">$ 能新建当然得能删除啊，如果要删除已经写好的文章就在<span class="built_in">source</span>/_posts/下面找到相应文章删除就可以了</div><div class="line">$ hexo clean     <span class="comment">#清楚缓存</span></div><div class="line">$ hexo g   <span class="comment">#生成页面 == hexo generate</span></div><div class="line">$ hexo s   <span class="comment">#开启本地预览服务器  == hexo server</span></div><div class="line">$ hexo d  <span class="comment">#部署到博客 == hexo deploy</span></div></pre></td></tr></table></figure>
+<center> <strong>这样hexo+github的博客就完成了，是时候睡个觉庆祝下了！</strong></center>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/10/hexo-github搭建个人博客/" class="archive-article-date">
+  	<time datetime="2016-10-10T09:41:55.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-10</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/10/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/10/hello-world/" class="archive-article-date">
+  	<time datetime="2016-10-10T05:02:26.817Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-10</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 shenyubin
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/learn-log-css/" style="font-size: 10px;">learn-log css</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://shenyubin.github.io/">github博客</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://leenty.github.io/">leenty博客</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">这是一只&lt;br&gt;&lt;br&gt;喜欢鼓（xia）捣（gao）的前端</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
